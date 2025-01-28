@@ -1,0 +1,40 @@
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import classification_report, confusion_matrix
+import seaborn as sns
+from keras.models import load_model
+from keras.preprocessing.image import ImageDataGenerator
+
+# Set directories
+test_data_dir = r'E:\BITS PROJECT FINAL\OCT-DEC RBITS PROJECTS\2 [SVIT] SKIN DISEASE\training\Data\Test'
+
+# Set batch size and image size
+batch_size = 32
+image_size = (224, 224)
+
+# Load the trained model
+model = load_model('2_effnet.keras')
+
+# Set ImageDataGenerator for test data (only rescaling)
+test_datagen = ImageDataGenerator(rescale=1. / 255)
+
+# Set up test generator
+test_generator = test_datagen.flow_from_directory(test_data_dir,
+    target_size=image_size,
+    batch_size=batch_size,
+    class_mode='categorical',
+    shuffle=False)  # Do not shuffle for evaluation
+
+# Make predictions
+predictions = model.predict(test_generator)
+predicted_classes = np.argmax(predictions, axis=1)
+
+# Get true classes
+true_classes = test_generator.classes
+class_labels = list(test_generator.class_indices.keys())
+
+# Print classification report
+print(classification_report(true_classes, predicted_classes, target_names=class_labels))
+
+
