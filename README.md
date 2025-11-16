@@ -26,9 +26,3 @@ The model is based on EfficientNet, with the following key components:
 4. Global Average Pooling: Reduces spatial dimensions.
 5. Fully Connected Layer: Maps features to class probabilities.
 6. Output Layer: Produces the final classification.
-
-Contact
-For questions or feedback, please contact:
-- Email: [pathrimahanthesh444@gmail.com]
-- *GitHub*: [https://github.com/pathrimahanthesh](https://github.com/pathrimahanthesh)
-
